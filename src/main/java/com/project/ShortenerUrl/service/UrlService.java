@@ -25,7 +25,7 @@ public class UrlService {
             throw new ApiException("not_found", "This url or timestamp is empty or not exists.", HttpStatus.NOT_FOUND.value());
         }
 
-        Long expiration = Long.parseLong(urlDto.getExpirationTime());
+        long expiration = Long.parseLong(urlDto.getExpirationTime());
 
         if (expiration < Instant.now().getEpochSecond()){
             throw new ApiException("conflict", "The url time has been expired", HttpStatus.CONFLICT.value());
@@ -45,8 +45,15 @@ public class UrlService {
     }
 
     public OriginalUrl searchUrlByShortUrl(String shortUrl){
-        return urlRepository.findByShortenerUrl(shortUrl).orElseThrow(() -> {
-            throw new ApiException("not_found", "The url not exists", HttpStatus.NOT_FOUND.value());
-        });
+        OriginalUrl originalUrl = urlRepository.findByShortenerUrl(shortUrl).orElseThrow(() ->
+                new ApiException("not_found", "The url not exists", HttpStatus.NOT_FOUND.value()));
+
+        long expiration = Long.parseLong(originalUrl.getExpirationTime());
+
+        if (expiration < Instant.now().getEpochSecond()){
+            throw new ApiException("conflict", "This Url time has been expired", HttpStatus.CONFLICT.value());
+        }
+
+        return originalUrl;
     }
 }
