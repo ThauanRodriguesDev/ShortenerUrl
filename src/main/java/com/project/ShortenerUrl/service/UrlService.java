@@ -16,9 +16,9 @@ public class UrlService {
         this.urlRepository = urlRepository;
     }
 
-    public ShortUrl add(OriginalUrlDto urlDto){
+    public ShortUrl saveOriginalUrl(OriginalUrlDto urlDto){
         UUID uuid = UUID.randomUUID();
-        String shortUrl = uuid.toString().replace("-", "").substring(0,8);
+        String shortUrl = uuid.toString().substring(0,8);
 
         OriginalUrl url = new OriginalUrl();
         url.setShortenerUrl(shortUrl);
@@ -27,8 +27,6 @@ public class UrlService {
 
         urlRepository.save(url);
 
-        ShortUrl shortUrlDto = new ShortUrl(shortUrl);
-
-        return shortUrlDto;
+        return new ShortUrl(shortUrl);
     }
 }
