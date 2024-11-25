@@ -1,22 +1,31 @@
 package com.project.ShortenerUrl.models.dto;
 
 public class OriginalUrlDto {
+    private Long id;
     private String originalUrl;
-    private Long expirationTime;
+    private String expirationTime;
 
     public OriginalUrlDto() {
     }
 
-    public OriginalUrlDto(Long expirationTime, String originalUrl) {
+    public OriginalUrlDto(String expirationTime, String originalUrl) {
         this.expirationTime = expirationTime;
         this.originalUrl = originalUrl;
     }
 
-    public Long getExpirationTime() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getExpirationTime() {
         return expirationTime;
     }
 
-    public void setExpirationTime(Long expirationTime) {
+    public void setExpirationTime(String expirationTime) {
         this.expirationTime = expirationTime;
     }
 

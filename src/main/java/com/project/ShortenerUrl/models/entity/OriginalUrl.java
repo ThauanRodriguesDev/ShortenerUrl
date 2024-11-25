@@ -11,23 +11,23 @@ public class OriginalUrl {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String originalUrl;
-    private Long expirationTime;
+    private String expirationTime;
     private String shortenerUrl;
 
     public OriginalUrl() {
     }
 
-    public OriginalUrl(String originalUrl, Long expirationTime, String shortnerUrl) {
+    public OriginalUrl(String originalUrl, String expirationTime, String shortnerUrl) {
         this.originalUrl = originalUrl;
         this.expirationTime = expirationTime;
         this.shortenerUrl = shortnerUrl;
     }
 
-    public Long getExpirationTime() {
+    public String getExpirationTime() {
         return expirationTime;
     }
 
-    public void setExpirationTime(Long expirationTime) {
+    public void setExpirationTime(String expirationTime) {
         this.expirationTime = expirationTime;
     }
 
