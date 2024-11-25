@@ -1,31 +1,34 @@
 package com.project.ShortenerUrl.models.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-@Document(collation = "urls_collections")
+@Entity
 public class OriginalUrl {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String originalUrl;
-
-    private Long ExpirationTime;
+    private Long expirationTime;
+    private String shortenerUrl;
 
     public OriginalUrl() {
     }
 
-    public OriginalUrl(String originalUrl, Long expirationTime) {
+    public OriginalUrl(String originalUrl, Long expirationTime, String shortnerUrl) {
         this.originalUrl = originalUrl;
-        ExpirationTime = expirationTime;
+        this.expirationTime = expirationTime;
+        this.shortenerUrl = shortnerUrl;
     }
 
     public Long getExpirationTime() {
-        return ExpirationTime;
+        return expirationTime;
     }
 
     public void setExpirationTime(Long expirationTime) {
-        ExpirationTime = expirationTime;
+        this.expirationTime = expirationTime;
     }
 
     public String getOriginalUrl() {
@@ -34,5 +37,13 @@ public class OriginalUrl {
 
     public void setOriginalUrl(String originalUrl) {
         this.originalUrl = originalUrl;
+    }
+
+    public String getShortenerUrl() {
+        return shortenerUrl;
+    }
+
+    public void setShortenerUrl(String shortnerUrl) {
+        this.shortenerUrl = shortnerUrl;
     }
 }
