@@ -29,4 +29,8 @@ public class UrlService {
 
         return new ShortUrl(shortUrl);
     }
+
+    public OriginalUrl searchUrlByShortUrl(String shortUrl){
+        return urlRepository.findByShortenerUrl(shortUrl).orElseThrow(RuntimeException::new);
+    }
 }
