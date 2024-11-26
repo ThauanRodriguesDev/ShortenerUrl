@@ -1,5 +1,5 @@
 
-# Encurtador de URL  
+# ShortnerUrl  
 
 Este é um projeto de **Encurtador de URL** desenvolvido com **Java Spring Boot** e **PostgreSQL**, utilizando Docker para facilitar o ambiente de execução.  
 
