@@ -36,8 +36,8 @@ Para encurtar uma URL, envie uma requisição **POST** para o endpoint `/api/url
 ```json
 {
   "originalUrl": "https://www.example.com/minha-url-longa",
-  "expirationTime": "2024-12-31T23:59:59", 
-  "base": "https://meu-dominio.com"
+  "expirationTime": "1389261489109", 
+  "base": 62
 }
 ```  
 
@@ -51,9 +51,7 @@ Para encurtar uma URL, envie uma requisição **POST** para o endpoint `/api/url
 
 ```json
 {
-  "shortUrl": "https://meu-dominio.com/abc123",
-  "originalUrl": "https://www.example.com/minha-url-longa",
-  "expirationTime": "1389261489109"
+  "shortCode": "as3uLp",
 }
 ```  
 
