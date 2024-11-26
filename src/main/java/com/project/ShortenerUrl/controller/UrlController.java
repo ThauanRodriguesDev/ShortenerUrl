@@ -27,7 +27,7 @@ public class UrlController {
         this.urlService = urlService;
     }
 
-    @PostMapping
+    @PostMapping("/api/url")
     public ResponseEntity<ShortUrl> saveUrl(@RequestBody OriginalUrlDto url){
         ShortUrl shortUrl = urlService.saveOriginalUrl(url);
 
