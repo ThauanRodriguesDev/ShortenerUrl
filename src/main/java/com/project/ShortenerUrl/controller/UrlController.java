@@ -43,7 +43,7 @@ public class UrlController {
 
             if (originalUrl.getOriginalUrl().contains("localhost:8080/" + url)) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .build(); //
+                        .build();
             }
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("Location", originalUrl.getOriginalUrl());

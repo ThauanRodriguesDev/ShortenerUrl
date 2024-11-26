@@ -8,21 +8,21 @@ import com.project.ShortenerUrl.service.exception.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.UUID;
 
 @Service
 public class UrlService {
     private final UrlRepository urlRepository;
+    private final ShortUrlGenerate urlGenerate;
 
-    public UrlService(UrlRepository urlRepository) {
+    public UrlService(UrlRepository urlRepository, ShortUrlGenerate urlGenerate) {
         this.urlRepository = urlRepository;
+        this.urlGenerate = urlGenerate;
     }
 
     public ShortUrl saveOriginalUrl(OriginalUrlDto urlDto){
-        if(urlDto.getOriginalUrl().isEmpty() || urlDto.getExpirationTime().isEmpty()){
-            throw new ApiException("not_found", "This url or timestamp is empty or not exists.", HttpStatus.NOT_FOUND.value());
+        if(urlDto.getOriginalUrl().isEmpty() || urlDto.getExpirationTime().isEmpty() || urlDto.getBase() == null){
+            throw new ApiException("not_found", "This url, timestamp or base is empty or not exists.", HttpStatus.NOT_FOUND.value());
         }
 
         long expiration = Long.parseLong(urlDto.getExpirationTime());
@@ -31,15 +31,20 @@ public class UrlService {
             throw new ApiException("conflict", "The url time has been expired", HttpStatus.CONFLICT.value());
         }
 
-        UUID uuid = UUID.randomUUID();
-        String shortUrl = uuid.toString().substring(0,8);
 
+        String shortUrl = urlGenerate.generateShortenerUrl(urlDto);
         OriginalUrl url = new OriginalUrl();
         url.setShortenerUrl(shortUrl);
         url.setOriginalUrl(urlDto.getOriginalUrl());
         url.setExpirationTime(urlDto.getExpirationTime());
 
-        urlRepository.save(url);
+
+        if (searchUrlByShortUrl(shortUrl) == null){
+            urlRepository.save(url);
+        } else if(Long.parseLong(searchUrlByShortUrl(shortUrl).getExpirationTime()) < Instant.now().getEpochSecond()) {
+            urlRepository.delete(urlRepository.findByShortenerUrl(shortUrl).get());
+            urlRepository.save(url);
+        }
 
         return new ShortUrl(shortUrl);
     }
@@ -51,6 +56,7 @@ public class UrlService {
         long expiration = Long.parseLong(originalUrl.getExpirationTime());
 
         if (expiration < Instant.now().getEpochSecond()){
+            urlRepository.delete(originalUrl);
             throw new ApiException("conflict", "This Url time has been expired", HttpStatus.CONFLICT.value());
         }
 

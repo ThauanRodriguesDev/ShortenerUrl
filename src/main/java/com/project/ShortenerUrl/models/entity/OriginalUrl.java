@@ -1,5 +1,6 @@
 package com.project.ShortenerUrl.models.entity;
 
+import com.project.ShortenerUrl.enums.Base;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,10 +18,14 @@ public class OriginalUrl {
     public OriginalUrl() {
     }
 
-    public OriginalUrl(String originalUrl, String expirationTime, String shortnerUrl) {
+    public OriginalUrl(String originalUrl, String expirationTime, String shortenerUrl) {
         this.originalUrl = originalUrl;
         this.expirationTime = expirationTime;
-        this.shortenerUrl = shortnerUrl;
+        this.shortenerUrl = shortenerUrl;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getExpirationTime() {
