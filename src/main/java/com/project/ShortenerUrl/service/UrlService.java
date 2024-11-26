@@ -39,7 +39,7 @@ public class UrlService {
         url.setExpirationTime(urlDto.getExpirationTime());
 
 
-        if (searchUrlByShortUrl(shortUrl) == null){
+        if (searchUrlByShortUrl(shortUrl) == null || searchUrlByShortUrl(shortUrl).getShortenerUrl() != shortUrl){
             urlRepository.save(url);
         } else if(Long.parseLong(searchUrlByShortUrl(shortUrl).getExpirationTime()) < Instant.now().getEpochSecond()) {
             urlRepository.delete(urlRepository.findByShortenerUrl(shortUrl).get());
