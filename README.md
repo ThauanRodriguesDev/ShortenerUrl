@@ -19,7 +19,7 @@ Este é um projeto de **Encurtador de URL** desenvolvido com **Java Spring Boot*
 1. Clone o repositório:  
    ```bash
    git clone https://github.com/ThauanRodriguesDev/ShortenerUrl.git
-   cd seu-repositorio  
+   cd repositorio  
    ```  
 
 2. Execute o Docker Compose para iniciar a aplicação:  
