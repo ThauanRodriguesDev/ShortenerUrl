@@ -39,11 +39,12 @@ public class UrlService {
         url.setExpirationTime(urlDto.getExpirationTime());
 
 
-        if (searchUrlByShortUrl(shortUrl) == null || searchUrlByShortUrl(shortUrl).getShortenerUrl() != shortUrl){
+        if (urlRepository.findByShortenerUrl(shortUrl).isEmpty()){
             urlRepository.save(url);
-        } else if(Long.parseLong(searchUrlByShortUrl(shortUrl).getExpirationTime()) < Instant.now().getEpochSecond()) {
-            urlRepository.delete(urlRepository.findByShortenerUrl(shortUrl).get());
-            urlRepository.save(url);
+        } else if(Long.parseLong(urlRepository.findByShortenerUrl(shortUrl).get().getExpirationTime()) < Instant.now().getEpochSecond()){
+            OriginalUrl urlO = urlRepository.findByShortenerUrl(shortUrl).get();
+            urlRepository.delete(urlO);
+            urlRepository.save(urlO);
         }
 
         return new ShortUrl(shortUrl);
