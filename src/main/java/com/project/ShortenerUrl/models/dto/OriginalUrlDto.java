@@ -58,6 +58,6 @@ public class OriginalUrlDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(originalUrl);
+        return Objects.hash(expirationTime,originalUrl);
     }
 }

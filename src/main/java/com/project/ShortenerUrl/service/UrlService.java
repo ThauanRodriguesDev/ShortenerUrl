@@ -41,10 +41,6 @@ public class UrlService {
 
         if (urlRepository.findByShortenerUrl(shortUrl).isEmpty()){
             urlRepository.save(url);
-        } else if(Long.parseLong(urlRepository.findByShortenerUrl(shortUrl).get().getExpirationTime()) < Instant.now().getEpochSecond()){
-            OriginalUrl urlO = urlRepository.findByShortenerUrl(shortUrl).get();
-            urlRepository.delete(urlO);
-            urlRepository.save(urlO);
         }
 
         return new ShortUrl(shortUrl);
