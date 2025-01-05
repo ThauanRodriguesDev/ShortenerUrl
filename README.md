@@ -7,7 +7,7 @@ Este é um projeto de **Encurtador de URL** desenvolvido com **Java Spring Boot*
 
 - **Encurtar URLs**: Permite gerar URLs curtas baseadas em uma URL original.  
 - **Definir prazo de expiração**: Configure um tempo limite para a validade da URL.  
-- **Base customizável**: Escolha uma base para a URL encurtada (domínio ou caminho).  
+- **Base customizável**: Escolha uma base para a URL encurtada .  
 
 ## Pré-requisitos  
 
